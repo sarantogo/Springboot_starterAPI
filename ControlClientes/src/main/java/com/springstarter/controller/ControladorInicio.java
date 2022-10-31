@@ -1,4 +1,4 @@
-package com.springstarter.web;
+package com.springstarter.controller;
 
 import javax.validation.Valid;
 
@@ -9,8 +9,8 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.springstarter.domain.Persona;
-import com.springstarter.service.PersonaService;
+import com.springstarter.models.Persona;
+import com.springstarter.service.PersonaServiceImpl;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -19,11 +19,11 @@ import lombok.extern.slf4j.Slf4j;
 public class ControladorInicio {
 	
 	@Autowired
-	private PersonaService personaService;
+	private PersonaServiceImpl personaServiceImpl;
 	
 	@GetMapping("/")
 	public String inicio(Model model) {
-		var personas = personaService.listarPersonas();
+		var personas = personaServiceImpl.listarPersonas();
 		model.addAttribute("personas", personas);
 		return "index";
 	}
@@ -38,23 +38,20 @@ public class ControladorInicio {
 		if(errores.hasErrors()) {
 			return "moificar";
 		}
-		personaService.guardar(persona);
+		personaServiceImpl.guardar(persona);
 		return "redirect:/";
 	}
 	
 	@GetMapping("/editar/{id_persona}")
 	public String editar(Persona persona, Model model) {
-		persona = personaService.encontrarPersona(persona);
+		persona = personaServiceImpl.encontrarPersona(persona);
 		model.addAttribute("persona",persona);
 		return "moificar";
 	}
 	
 	@GetMapping("/eliminar/{id_persona}")
 	public String eliminar(Persona persona) {
-		personaService.eliminar(persona);
+		personaServiceImpl.eliminar(persona);
 		return "redirect:/";
 	}
-		
-	
-	
 }

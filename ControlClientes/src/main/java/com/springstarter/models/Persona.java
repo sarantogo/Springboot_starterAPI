@@ -1,4 +1,4 @@
-package com.springstarter.domain;
+package com.springstarter.models;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -10,12 +10,12 @@ import lombok.Setter;
 
 @Getter @Setter @NoArgsConstructor
 @Entity //Para declarar la clase Persona como una entidad en la BD
-@Table(name="persona", schema = "test")
+@Table(name="persona", schema = "C##ANDRES")
 public class Persona {
 	
 	@Id //Para indicar que es la Primary Key
 	@GeneratedValue(generator="idPersonaseq") //Para indicar de qué manera se va a generar este valor. En este caso, se va a generar haciendo uso de la secuencia de autoincrement definida en el script SQL. 
-	@SequenceGenerator(name="idPersonaseq", sequenceName="TEST.PERS_SEQ", allocationSize = 1)
+	@SequenceGenerator(name="idPersonaseq", sequenceName="PERS_SEQ", allocationSize = 1)
 	@Column(name="id_persona")
 	private Long id_persona;
 	

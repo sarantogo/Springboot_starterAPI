@@ -6,41 +6,32 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.springstarter.dao.PersonaDao;
-import com.springstarter.domain.Persona;
+import com.springstarter.models.Persona;
+import com.springstarter.repository.PersonaService;
 
 @Service
-public class PersonaServiceImpl implements PersonaService{
+public class PersonaServiceImpl{
 	
 	@Autowired
-	private PersonaDao personaDao;
-
-	@Override
+	public PersonaService personaService;
+	
 	@Transactional(readOnly=true)
 	public List<Persona> listarPersonas() {
-		return (List<Persona>) personaDao.findAll();
-
+		return (List<Persona>) personaService.findAll();
 	}
 
-	@Override
 	@Transactional
 	public void guardar(Persona persona) {
-		personaDao.save(persona);
-		
+		personaService.save(persona);
 	}
 
-	@Override
 	@Transactional
 	public void eliminar(Persona persona) {
-		personaDao.delete(persona);
-		
+		personaService.delete(persona);
 	}
 
-	@Override
 	@Transactional(readOnly=true)
 	public Persona encontrarPersona(Persona persona) {
-		return personaDao.findById(persona.getId_persona()).orElse(null);
-
+		return personaService.findById(persona.getId_persona()).orElse(null);
 	}
-
 }
